@@ -1,0 +1,14 @@
+/bin/
+
+# Editor directories and files
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.metadata/
+.settings/
+*.project
+*.classpath
+*/*/obj/
+.vs/
