@@ -1,33 +1,49 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Task3_PostCodeSelect
 {
     class PostCodeSelect
     {
+
         static void Main(string[] args)
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);//Nugetパッケージマネージャーからsystem.text.encoding.codepagesをインストール
             try
             {
-                // CSVファイルを開く
-                using (var sr = new System.IO.StreamReader(@"27OSAKA.CSV"))
+                // CSVを開く
+                StreamReader sr = new StreamReader
+                    (@"C:\education\edu-Console2\Task3_PostCodeSelect\Task3_PostCodeSelect\27OSAKA.CSV", // 自分専用になってしまっている
+                Encoding.GetEncoding("shift_jis"));
+
+                while (!sr.EndOfStream)
                 {
-                    // ストリームの末尾まで繰り返す
-                    while(! sr.EndOfStream)
+                    // CSVファイルの一行を読み込む
+                    String line = sr.ReadLine();
+                    //System.Console.Write("{0}", line);
+                    
+                    // 読み込んだ一行をカンマごとに分けて格納する
+                    String[] values = line.Split(',');
+
+                    // 配列からリストに格納する
+                    List<string> lists = new List<string>();
+                    lists.AddRange(values);
+
+                    // コンソールに出力する
+                    foreach (string list in lists)
                     {
-                        //ファイルから1行読み込む
-                        var line = sr.ReadLine();
-
-                        // 読み込んだ一行をカンマ毎に分けて配列に格納する
-                        //var values = line.Spilit(',')
-
-
-
-
+                        System.Console.Write("{0}", list);
                     }
+
+                    System.Console.WriteLine();
+
+
                 }
+
             }
-            catch(System.Exception e)
+            catch (System.Exception e)
             {
                 // ファイルを開くのに失敗したとき
                 System.Console.WriteLine(e.Message);
